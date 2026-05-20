@@ -484,7 +484,7 @@ function App() {
             <p className="mb-12 text-lg leading-relaxed text-on-surface-variant">{t.contactText}</p>
             <div className="space-y-6">
               <div className="flex items-center gap-4"><Icon name="mail" className="text-primary-container" /><span>kontakt@droneacademypoland.pl</span></div>
-              <div className="flex items-center gap-4"><Icon name="call" className="text-primary-container" /><span>+48 123 456 789</span></div>
+              <div className="flex items-center gap-4"><Icon name="call" className="text-primary-container" /><span>+48509161238</span></div>
               <div className="flex items-center gap-4"><Icon name="location_on" className="text-primary-container" /><span>Warszawa / Kraków / Cała Polska</span></div>
             </div>
           </div>
