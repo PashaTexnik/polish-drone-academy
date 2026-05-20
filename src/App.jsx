@@ -485,7 +485,7 @@ function App() {
             <div className="space-y-6">
               <div className="flex items-center gap-4"><Icon name="mail" className="text-primary-container" /><span>bogdanbogdan576@gmail.com</span></div>
               <div className="flex items-center gap-4"><Icon name="call" className="text-primary-container" /><span>+48509161238</span></div>
-              <div className="flex items-center gap-4"><Icon name="location_on" className="text-primary-container" /><span>Warszawa / Kraków / Cała Polska</span></div>
+              <div className="flex items-center gap-4"><Icon name="location_on" className="text-primary-container" /><span>Tomaszow mazowiecki i cala polska</span></div>
             </div>
           </div>
           <div className="glass-card rounded-3xl p-8 md:p-12">
