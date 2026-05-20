@@ -58,6 +58,74 @@ textarea {
   will-change: transform;
 }
 
+.hero-drone-guide {
+  position: fixed;
+  top: clamp(150px, 27vh, 300px);
+  right: clamp(18px, 10vw, 170px);
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  opacity: var(--hero-drone-opacity, 1);
+  pointer-events: none;
+  transform: translate3d(var(--hero-drone-x, 0), var(--hero-drone-y, 0), 0);
+  transition:
+    opacity 160ms ease-out,
+    transform 180ms ease-out;
+  will-change: transform;
+}
+
+.hero-drone-ring {
+  position: relative;
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border: 1px solid rgba(0, 229, 255, 0.76);
+  border-radius: 999px;
+  background: rgba(8, 15, 17, 0.62);
+  color: #00e5ff;
+  box-shadow: 0 0 34px rgba(0, 229, 255, 0.24);
+}
+
+.hero-drone-ring::before,
+.hero-drone-ring::after {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(0, 229, 255, 0.22);
+  border-radius: inherit;
+  content: "";
+}
+
+.hero-drone-ring::after {
+  inset: 12px -46px 12px 46px;
+  border-width: 1px 1px 1px 0;
+  border-left: 0;
+  border-radius: 0;
+}
+
+.hero-drone-hints {
+  display: grid;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.hero-drone-hint {
+  width: max-content;
+  max-width: min(260px, 44vw);
+  border-left: 1px solid #00e5ff;
+  background: rgba(8, 15, 17, 0.72);
+  padding: 7px 10px;
+  color: #c3f5ff;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: hintPulse 4.8s ease-in-out infinite;
+  backdrop-filter: blur(12px);
+}
+
 .hud-chip {
   background: #192122;
   border-left: 1px solid #00e5ff;
@@ -78,6 +146,18 @@ textarea {
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@keyframes hintPulse {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(6px);
   }
 }
 
@@ -169,6 +249,11 @@ textarea {
   .section-skew-content {
     transform: none;
   }
+
+  .hero-drone-guide {
+    top: clamp(150px, 24vh, 260px);
+    right: clamp(18px, 8vw, 80px);
+  }
 }
 
 @media (max-width: 639px) {
@@ -189,11 +274,41 @@ textarea {
     transform: translateX(-50%);
   }
 
+  .hero-drone-guide {
+    top: 138px;
+    right: 18px;
+    gap: 8px;
+  }
+
+  .hero-drone-ring {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hero-drone-hints {
+    gap: 6px;
+  }
+
+  .hero-drone-hint {
+    max-width: 150px;
+    padding: 6px 8px;
+    font-size: 9px;
+  }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-parallax-image {
     transform: scale(1.03);
     transition: none;
+  }
+
+  .hero-drone-guide {
+    transform: none;
+    transition: none;
+  }
+
+  .hero-drone-hint {
+    animation: none;
   }
 }
