@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="dark" lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Drone Academy Poland - drone training and cinematic aerial filming in Poland."
+    />
+    <title>Drone Academy Poland | Szkoła dronowa i filmowanie z powietrza</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              surface: "#0d1516",
+              background: "#0d1516",
+              "surface-container-lowest": "#080f11",
+              "surface-container-low": "#151d1e",
+              "surface-container": "#192122",
+              "surface-container-high": "#242b2d",
+              "surface-container-highest": "#2e3638",
+              "on-surface": "#dce4e5",
+              "on-surface-variant": "#bac9cc",
+              "outline-variant": "#3b494c",
+              "primary-container": "#00e5ff",
+              "on-primary-container": "#00626e",
+              primary: "#c3f5ff",
+            },
+            spacing: {
+              "margin-desktop": "64px",
+              "container-max": "1280px",
+              "section-gap": "120px",
+              gutter: "24px",
+              "margin-mobile": "20px",
+            },
+            fontFamily: {
+              sora: ["Sora", "sans-serif"],
+              hanken: ["Hanken Grotesk", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Material+Symbols+Outlined:wght@100..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body class="bg-background text-on-surface font-hanken overflow-x-hidden">
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel" data-presets="react" src="./src/App.jsx"></script>
+  </body>
+</html>
