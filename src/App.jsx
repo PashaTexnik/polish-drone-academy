@@ -258,11 +258,11 @@ function App() {
   return (
     <>
       <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-surface/50 shadow-[0_8px_32px_rgba(0,229,255,0.08)] backdrop-blur-xl">
-        <div className="mx-auto flex max-w-container-max items-center justify-between px-margin-mobile py-4 md:px-margin-desktop">
-          <button onClick={() => jump("top")} className="font-sora text-base font-bold tracking-tight text-primary md:text-lg">
+        <div className="mx-auto flex max-w-container-max items-center justify-between gap-4 px-margin-mobile py-4 md:px-margin-desktop">
+          <button onClick={() => jump("top")} className="max-w-[220px] text-left font-sora text-base font-bold tracking-tight text-primary md:text-lg lg:max-w-none">
             Drone Academy Poland
           </button>
-          <div className="hidden items-center gap-6 md:flex">
+          <div className="hidden items-center gap-6 lg:flex">
             {t.nav.map((item, index) => (
               <button
                 key={item}
@@ -279,12 +279,12 @@ function App() {
               {t.enroll}
             </button>
           </div>
-          <button className="text-primary md:hidden" onClick={() => setMenuOpen((open) => !open)} aria-label="Menu">
+          <button className="text-primary lg:hidden" onClick={() => setMenuOpen((open) => !open)} aria-label="Menu">
             <Icon name={menuOpen ? "close" : "menu"} />
           </button>
         </div>
         {menuOpen && (
-          <div className="border-t border-white/10 bg-surface-container-low px-margin-mobile py-5 md:hidden">
+          <div className="border-t border-white/10 bg-surface-container-low px-margin-mobile py-5 lg:hidden">
             <div className="mb-4 flex flex-col gap-4">
               {t.nav.map((item, index) => (
                 <button key={item} onClick={() => jump(navTargets[index])} className="text-left text-on-surface-variant">
@@ -311,7 +311,7 @@ function App() {
                 </span>
               ))}
             </div>
-            <h1 className="hero-title mb-6 font-sora text-6xl font-bold leading-[1.08] text-on-surface md:text-7xl">
+            <h1 className="hero-title mb-6 font-sora font-bold text-on-surface">
               {t.heroTitle[0]} <span className="text-glow text-primary-container">{t.heroTitle[1]}</span>
             </h1>
             <p className="mb-10 max-w-xl text-lg leading-relaxed text-on-surface-variant">{t.heroText}</p>
@@ -332,9 +332,9 @@ function App() {
           <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">{t.servicesEyebrow}</h2>
           <p className="font-sora text-3xl font-medium text-on-surface">{t.servicesTitle}</p>
         </div>
-        <div className="grid gap-gutter md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-gutter md:grid-cols-2 lg:grid-cols-3">
           {t.services.map(([icon, title, text]) => (
-            <div key={title} className="glass-card group p-10 transition-transform duration-500 hover:-translate-y-2">
+            <div key={title} className="glass-card group min-w-0 p-10 transition-transform duration-500 hover:-translate-y-2">
               <Icon name={icon} className="mb-6 text-4xl text-primary-container" />
               <h3 className="mb-4 font-sora text-2xl font-medium text-on-surface">{title}</h3>
               <p className="mb-6 leading-relaxed text-on-surface-variant">{text}</p>
@@ -344,22 +344,22 @@ function App() {
         </div>
       </section>
 
-      <section className="relative py-section-gap">
+      <section className="pilot-section relative py-section-gap" id="pilot">
         <div className="section-skew absolute inset-0 z-0 bg-surface-container-low" />
-        <div className="section-skew-content relative z-10 mx-auto grid max-w-container-max items-center gap-16 px-margin-mobile md:grid-cols-2 md:px-margin-desktop">
-          <div className="relative">
-            <img src={images.pilot} alt="" className="rounded-xl grayscale shadow-2xl transition-all duration-700 hover:grayscale-0" />
-            <div className="glass-card absolute -bottom-8 right-4 p-5 text-center md:right-10">
+        <div className="pilot-grid section-skew-content relative z-10 mx-auto grid max-w-container-max grid-cols-1 items-center gap-12 px-margin-mobile md:px-margin-desktop lg:grid-cols-2 lg:gap-16">
+          <div className="pilot-media relative mx-auto w-full max-w-[620px]">
+            <img src={images.pilot} alt="" className="aspect-[4/3] w-full rounded-xl object-cover grayscale shadow-2xl transition-all duration-700 hover:grayscale-0" />
+            <div className="pilot-badge glass-card absolute p-5 text-center">
               <div className="font-sora text-2xl font-bold text-primary-container">100%</div>
               <div className="font-mono text-[10px] uppercase tracking-[0.12em] text-on-surface-variant">{t.pilotBadge}</div>
             </div>
           </div>
-          <div>
-            <h2 className="mb-8 font-sora text-4xl font-semibold leading-tight text-on-surface md:text-5xl">
+          <div className="pilot-copy mx-auto w-full max-w-[660px] lg:mx-0">
+            <h2 className="pilot-title mb-8 font-sora font-semibold leading-tight text-on-surface">
               {t.pilotTitle[0]}<br />
               {t.pilotTitle[1]} <span className="text-primary-container">{t.pilotTitle[2]}</span>
             </h2>
-            <div className="space-y-6">
+            <div className="pilot-benefits grid gap-5">
               {t.benefits.map(([title, text]) => (
                 <div key={title} className="flex gap-4">
                   <Icon name="verified" className="mt-1 text-lg text-primary-container" />
@@ -375,8 +375,8 @@ function App() {
       </section>
 
       <section id="courses" className="mx-auto max-w-container-max px-margin-mobile py-section-gap md:px-margin-desktop">
-        <div className="glass-card grid overflow-hidden rounded-xl md:grid-cols-2">
-          <div className="p-10 md:p-16">
+        <div className="glass-card grid grid-cols-1 overflow-hidden rounded-xl lg:grid-cols-2">
+          <div className="p-8 md:p-10 lg:p-16">
             <h2 className="mb-8 max-w-md font-sora text-4xl font-semibold leading-tight text-on-surface">{t.courseTitle}</h2>
             <ul className="mb-10 space-y-5">
               {t.courseBullets.map((item) => (
@@ -398,7 +398,7 @@ function App() {
       </section>
 
       <section className="mx-auto max-w-container-max px-margin-mobile py-section-gap md:px-margin-desktop" id="filming">
-        <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+        <div className="mb-16 flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <h2 className="mb-6 font-sora text-4xl font-semibold leading-tight text-on-surface md:text-5xl">{t.filmingTitle}</h2>
             <div className="flex flex-wrap gap-2">
@@ -411,7 +411,7 @@ function App() {
           </div>
           <p className="max-w-sm leading-relaxed text-on-surface-variant">{t.filmingText}</p>
         </div>
-        <div className="grid gap-gutter md:grid-cols-3" id="portfolio">
+        <div className="grid grid-cols-1 gap-gutter md:grid-cols-2 lg:grid-cols-3" id="portfolio">
           {t.portfolio.map(([type, title], index) => (
             <div key={title} className="glass-card group relative aspect-video overflow-hidden rounded-xl">
               <img src={images.portfolio[index]} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -432,7 +432,7 @@ function App() {
           <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">{t.processEyebrow}</h2>
           <p className="font-sora text-3xl font-medium text-on-surface">{t.processTitle}</p>
         </div>
-        <div className="grid gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {t.process.map(([icon, title, text]) => (
             <div key={title} className="text-center">
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-primary-container/20 bg-surface-container-highest">
@@ -450,9 +450,9 @@ function App() {
           <h2 className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-primary">{t.pricingEyebrow}</h2>
           <p className="font-sora text-3xl font-medium text-on-surface">{t.pricingTitle}</p>
         </div>
-        <div className="grid gap-gutter md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-gutter lg:grid-cols-3">
           {t.packages.map(([name, subtitle, price, currency, items, button], index) => (
-            <div key={name} className={`glass-card relative flex flex-col items-center rounded-2xl p-10 text-center ${index === 1 ? "border-primary-container/30 md:scale-105" : ""}`}>
+            <div key={name} className={`glass-card relative flex min-w-0 flex-col items-center rounded-2xl p-8 text-center md:p-10 ${index === 1 ? "border-primary-container/30 lg:scale-105" : ""}`}>
               {index === 1 && <div className="absolute -top-4 rounded-full bg-primary-container px-4 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-[#00363d]">{t.popular}</div>}
               <h3 className="mb-2 font-sora text-2xl font-medium text-on-surface">{name}</h3>
               <p className="mb-8 font-mono text-xs uppercase tracking-[0.1em] text-primary-container">{subtitle}</p>
@@ -476,7 +476,7 @@ function App() {
       </section>
 
       <section className="mx-auto max-w-container-max px-margin-mobile py-section-gap md:px-margin-desktop" id="contact">
-        <div className="grid items-center gap-section-gap md:grid-cols-2">
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-section-gap">
           <div>
             <h2 className="mb-8 font-sora text-4xl font-semibold leading-tight text-on-surface md:text-5xl">
               {t.contactTitle[0]} <span className="text-primary-container">{t.contactTitle[1]}</span>
@@ -511,8 +511,8 @@ function App() {
       </section>
 
       <footer className="border-t border-outline-variant/20 bg-surface-container-lowest py-section-gap">
-        <div className="mx-auto grid max-w-container-max grid-cols-1 gap-gutter px-margin-mobile md:grid-cols-4 md:px-margin-desktop">
-          <div className="md:col-span-2">
+        <div className="mx-auto grid max-w-container-max grid-cols-1 gap-gutter px-margin-mobile sm:grid-cols-2 lg:grid-cols-4 md:px-margin-desktop">
+          <div className="lg:col-span-2">
             <div className="mb-4 font-sora text-xl font-semibold text-on-surface">Drone Academy Poland</div>
             <p className="mb-8 max-w-sm text-on-surface-variant">© 2026 Drone Academy Poland. Precision in every frame. {t.footer}</p>
             <div className="flex gap-4">
