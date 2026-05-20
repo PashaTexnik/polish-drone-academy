@@ -78,6 +78,29 @@ textarea {
   transform: skewY(2deg);
 }
 
+.hero-title {
+  font-size: clamp(2.6rem, 9vw, 4.5rem);
+  line-height: 1.06;
+}
+
+.pilot-title {
+  font-size: clamp(2rem, 7vw, 3rem);
+}
+
+.pilot-badge {
+  bottom: -2rem;
+  right: 1.5rem;
+  min-width: 168px;
+}
+
+.pilot-benefits {
+  grid-template-columns: 1fr;
+}
+
+.pilot-section {
+  overflow: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -95,9 +118,63 @@ textarea {
   background: #00e5ff;
 }
 
-@media (max-width: 767px) {
+@media (min-width: 768px) {
   .hero-title {
-    font-size: 42px;
-    line-height: 1.04;
+    font-size: clamp(4.5rem, 7vw, 5.75rem);
   }
+
+  .pilot-benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .pilot-title {
+    font-size: clamp(2.6rem, 4vw, 3.75rem);
+  }
+
+  .pilot-benefits {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1023px) {
+  .pilot-section {
+    padding-top: 88px;
+    padding-bottom: 112px;
+  }
+
+  .pilot-grid {
+    align-items: start;
+  }
+
+  .pilot-copy {
+    order: -1;
+    text-align: left;
+  }
+
+  .section-skew,
+  .section-skew-content {
+    transform: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .pilot-section {
+    padding-top: 72px;
+    padding-bottom: 96px;
+  }
+
+  .pilot-title {
+    font-size: clamp(2rem, 11vw, 2.85rem);
+  }
+
+  .pilot-badge {
+    bottom: -1.75rem;
+    left: 50%;
+    right: auto;
+    min-width: 154px;
+    transform: translateX(-50%);
+  }
+
 }
