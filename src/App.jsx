@@ -247,6 +247,66 @@ function App() {
     localStorage.setItem("dap-lang", lang);
   }, [lang]);
 
+  useEffect(() => {
+    const hero = document.getElementById("top");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!hero || prefersReducedMotion.matches) return;
+
+    let frame = 0;
+    let scrollOffset = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const applyParallax = () => {
+      frame = 0;
+      hero.style.setProperty("--hero-scroll-y", `${scrollOffset}px`);
+      hero.style.setProperty("--hero-pointer-x", `${pointerX}px`);
+      hero.style.setProperty("--hero-pointer-y", `${pointerY}px`);
+    };
+
+    const queueParallax = () => {
+      if (!frame) frame = requestAnimationFrame(applyParallax);
+    };
+
+    const handleScroll = () => {
+      const heroHeight = hero.offsetHeight || 1;
+      scrollOffset = Math.min(70, (window.scrollY / heroHeight) * 90);
+      queueParallax();
+    };
+
+    const handlePointerMove = (event) => {
+      const rect = hero.getBoundingClientRect();
+      const xProgress = (event.clientX - rect.left) / rect.width - 0.5;
+      const yProgress = (event.clientY - rect.top) / rect.height - 0.5;
+      pointerX = xProgress * -24;
+      pointerY = yProgress * -14;
+      queueParallax();
+    };
+
+    const handlePointerLeave = () => {
+      pointerX = 0;
+      pointerY = 0;
+      queueParallax();
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    hero.addEventListener("mousemove", handlePointerMove, { passive: true });
+    hero.addEventListener("pointermove", handlePointerMove, { passive: true });
+    hero.addEventListener("pointerleave", handlePointerLeave);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      hero.removeEventListener("mousemove", handlePointerMove);
+      hero.removeEventListener("pointermove", handlePointerMove);
+      hero.removeEventListener("pointerleave", handlePointerLeave);
+      if (frame) cancelAnimationFrame(frame);
+      hero.style.removeProperty("--hero-scroll-y");
+      hero.style.removeProperty("--hero-pointer-x");
+      hero.style.removeProperty("--hero-pointer-y");
+    };
+  }, []);
+
   const jump = (id) => {
     setMenuOpen(false);
     const element = document.getElementById(id);
@@ -299,7 +359,7 @@ function App() {
 
       <header id="top" className="relative flex min-h-screen items-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          <img src={images.hero} alt="" className="h-full w-full object-cover opacity-60" />
+          <img src={images.hero} alt="" className="hero-parallax-image h-full w-full object-cover opacity-60" />
           <div className="hero-gradient absolute inset-0" />
         </div>
         <div className="relative z-10 mx-auto w-full max-w-container-max px-margin-mobile md:px-margin-desktop">
