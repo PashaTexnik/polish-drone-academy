@@ -46,6 +46,18 @@ textarea {
     linear-gradient(to bottom, rgba(13, 21, 22, 0.03) 0%, rgba(13, 21, 22, 0.54) 54%, #0d1516 100%);
 }
 
+.hero-parallax-image {
+  transform: translate3d(
+      var(--hero-pointer-x, 0),
+      calc(var(--hero-scroll-y, 0) + var(--hero-pointer-y, 0)),
+      0
+    )
+    scale(1.1);
+  transform-origin: center;
+  transition: transform 160ms ease-out;
+  will-change: transform;
+}
+
 .hud-chip {
   background: #192122;
   border-left: 1px solid #00e5ff;
@@ -177,4 +189,11 @@ textarea {
     transform: translateX(-50%);
   }
 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-parallax-image {
+    transform: scale(1.03);
+    transition: none;
+  }
 }
