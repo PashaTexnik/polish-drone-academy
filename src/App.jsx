@@ -19,6 +19,7 @@ const copy = {
     nav: ["Courses", "Filming", "Portfolio", "Pricing"],
     enroll: "Запишись зараз",
     chips: ["Szkolenia dla początkujących", "Filmowanie eventów", "Ujęcia FPV i cinematic"],
+    heroHints: ["Kurs pilotażu", "Filmowanie eventów", "Ujęcia FPV"],
     heroTitle: ["Szkoła dronowa i", "filmowanie z powietrza"],
     heroText:
       "Naucz się latać dronem pewnie i bezpiecznie albo zleć nam stworzenie dynamicznych ujęć z powietrza dla Twojego wydarzenia, marki lub przygody.",
@@ -84,6 +85,7 @@ const copy = {
     nav: ["Курси", "Зйомка", "Портфоліо", "Ціни"],
     enroll: "Запишись зараз",
     chips: ["Навчання для початківців", "Зйомка подій", "FPV та cinematic кадри"],
+    heroHints: ["Курс пілота", "Зйомка подій", "FPV кадри"],
     heroTitle: ["Школа дронів і", "аерозйомка"],
     heroText:
       "Навчіться керувати дроном впевнено й безпечно або замовте динамічні кадри з повітря для події, бренду чи пригоди.",
@@ -149,6 +151,7 @@ const copy = {
     nav: ["Courses", "Filming", "Portfolio", "Pricing"],
     enroll: "Запишись зараз",
     chips: ["Beginner drone training", "Event filming", "FPV and cinematic shots"],
+    heroHints: ["Pilot course", "Event filming", "FPV shots"],
     heroTitle: ["Drone school and", "aerial filming"],
     heroText:
       "Learn to fly with confidence and safety, or hire us to create dynamic aerial footage for your event, brand, or adventure.",
@@ -254,12 +257,24 @@ function App() {
 
     let frame = 0;
     let scrollOffset = 0;
+    let flightProgress = 0;
+    let guideOpacity = 1;
     let pointerX = 0;
     let pointerY = 0;
 
     const applyParallax = () => {
       frame = 0;
+      const isSmall = window.innerWidth < 640;
+      const isMedium = window.innerWidth < 1024;
+      const flightX = flightProgress * (isSmall ? -18 : isMedium ? -42 : -86);
+      const flightY = flightProgress * (isSmall ? 92 : isMedium ? 132 : 190);
+      const pointerScale = isSmall ? 0 : isMedium ? 0.2 : 0.32;
+
       hero.style.setProperty("--hero-scroll-y", `${scrollOffset}px`);
+      hero.style.setProperty("--hero-flight-progress", flightProgress.toFixed(3));
+      hero.style.setProperty("--hero-drone-x", `${flightX + pointerX * pointerScale}px`);
+      hero.style.setProperty("--hero-drone-y", `${flightY + pointerY * pointerScale}px`);
+      hero.style.setProperty("--hero-drone-opacity", guideOpacity.toFixed(3));
       hero.style.setProperty("--hero-pointer-x", `${pointerX}px`);
       hero.style.setProperty("--hero-pointer-y", `${pointerY}px`);
     };
@@ -270,7 +285,10 @@ function App() {
 
     const handleScroll = () => {
       const heroHeight = hero.offsetHeight || 1;
+      const heroRect = hero.getBoundingClientRect();
       scrollOffset = Math.min(70, (window.scrollY / heroHeight) * 90);
+      flightProgress = Math.min(1, Math.max(0, window.scrollY / (heroHeight * 0.82)));
+      guideOpacity = Math.min(1, Math.max(0, (heroRect.bottom - 96) / 220));
       queueParallax();
     };
 
@@ -291,17 +309,23 @@ function App() {
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
     hero.addEventListener("mousemove", handlePointerMove, { passive: true });
     hero.addEventListener("pointermove", handlePointerMove, { passive: true });
     hero.addEventListener("pointerleave", handlePointerLeave);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
       hero.removeEventListener("mousemove", handlePointerMove);
       hero.removeEventListener("pointermove", handlePointerMove);
       hero.removeEventListener("pointerleave", handlePointerLeave);
       if (frame) cancelAnimationFrame(frame);
       hero.style.removeProperty("--hero-scroll-y");
+      hero.style.removeProperty("--hero-flight-progress");
+      hero.style.removeProperty("--hero-drone-x");
+      hero.style.removeProperty("--hero-drone-y");
+      hero.style.removeProperty("--hero-drone-opacity");
       hero.style.removeProperty("--hero-pointer-x");
       hero.style.removeProperty("--hero-pointer-y");
     };
@@ -361,6 +385,18 @@ function App() {
         <div className="absolute inset-0 z-0">
           <img src={images.hero} alt="" className="hero-parallax-image h-full w-full object-cover opacity-60" />
           <div className="hero-gradient absolute inset-0" />
+        </div>
+        <div className="hero-drone-guide" aria-hidden="true">
+          <div className="hero-drone-ring">
+            <Icon name="flight_takeoff" className="text-lg" />
+          </div>
+          <div className="hero-drone-hints">
+            {t.heroHints.map((hint, index) => (
+              <span key={hint} className="hero-drone-hint" style={{ animationDelay: `${index * 0.45}s` }}>
+                {hint}
+              </span>
+            ))}
+          </div>
         </div>
         <div className="relative z-10 mx-auto w-full max-w-container-max px-margin-mobile md:px-margin-desktop">
           <div className="max-w-3xl">
