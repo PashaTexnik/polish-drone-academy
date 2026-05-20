@@ -17,7 +17,7 @@ const images = {
 const copy = {
   pl: {
     nav: ["Courses", "Filming", "Portfolio", "Pricing"],
-    enroll: "Enroll Now",
+    enroll: "Запишись зараз",
     chips: ["Szkolenia dla początkujących", "Filmowanie eventów", "Ujęcia FPV i cinematic"],
     heroTitle: ["Szkoła dronowa i", "filmowanie z powietrza"],
     heroText:
@@ -82,7 +82,7 @@ const copy = {
   },
   ua: {
     nav: ["Курси", "Зйомка", "Портфоліо", "Ціни"],
-    enroll: "Записатися",
+    enroll: "Запишись зараз",
     chips: ["Навчання для початківців", "Зйомка подій", "FPV та cinematic кадри"],
     heroTitle: ["Школа дронів і", "аерозйомка"],
     heroText:
@@ -147,7 +147,7 @@ const copy = {
   },
   en: {
     nav: ["Courses", "Filming", "Portfolio", "Pricing"],
-    enroll: "Enroll Now",
+    enroll: "Запишись зараз",
     chips: ["Beginner drone training", "Event filming", "FPV and cinematic shots"],
     heroTitle: ["Drone school and", "aerial filming"],
     heroText:
