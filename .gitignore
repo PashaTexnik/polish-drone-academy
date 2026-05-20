@@ -1,0 +1,5 @@
+.netlify/
+.tmp-netlify-mcp/
+deploy-*.zip
+node_modules/
+
